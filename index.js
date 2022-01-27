@@ -2,6 +2,10 @@ const express=require('express');
 const app=express();
 const port=8000;
 
+//database 
+const db=require('./config/mongoose');
+
+
 //layouts use  Note: include before views to use them in views
 const expressLayouts=require('express-ejs-layouts');
 app.use(expressLayouts);
