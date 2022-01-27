@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title%></title>
+    <!-- be particular with addressing should be this way only  -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <%- style %>
 </head>
 <body>
     <!-- partial for header  -->
@@ -20,6 +23,9 @@
     <!-- partial for footer -->
 
     <%- include('_footer'); %>
+
+    <%- script %>
+
 
 </body>
 </html>
