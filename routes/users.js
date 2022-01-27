@@ -13,7 +13,18 @@ const user_post_Controllers=require('../controllers/user_post_controller');
 
 
 router.use('/posts',user_post_Controllers.post);
+
+router.use('/sign-up',userControllers.signUp);
+
+router.use('/sign-in',userControllers.signIn);
+
+
+
+
 module.exports=router;
+
+
+
 
 //commandd for user posts
 
