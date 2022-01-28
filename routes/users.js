@@ -20,6 +20,8 @@ router.get('/sign-in',userControllers.signIn);
 
 router.post('/create',userControllers.create);
 
+router.post('/create-session',userControllers.createSession);
+
 
 module.exports=router;
 
