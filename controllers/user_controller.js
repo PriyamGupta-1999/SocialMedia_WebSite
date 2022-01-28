@@ -19,3 +19,14 @@ module.exports.signIn=function(req, res){
         title: 'codiel | sign in page'
     });
 };
+
+
+//get the sign up data
+module.exports.create=function(req,res){
+    //todo later
+}
+
+//get the sign up data
+module.exports.createSession=function(req,res){
+    //todo later
+}
