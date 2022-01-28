@@ -12,13 +12,13 @@ router.get('/profile',userControllers.profile);
 const user_post_Controllers=require('../controllers/user_post_controller');
 
 
-router.use('/posts',user_post_Controllers.post);
+router.get('/posts',user_post_Controllers.post);
 
-router.use('/sign-up',userControllers.signUp);
+router.get('/sign-up',userControllers.signUp);
 
-router.use('/sign-in',userControllers.signIn);
+router.get('/sign-in',userControllers.signIn);
 
-
+router.post('/create',userControllers.create);
 
 
 module.exports=router;
