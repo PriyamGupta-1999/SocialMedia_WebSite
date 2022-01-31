@@ -37,7 +37,7 @@ passport.serializeUser(function(user,done){
 //deserializing the user from the key in the cookies 
 //descryptinmg the enscrypted id for server uses 
 passport.deserializeUser(function(id,done){
-    User.findById(id, function(errmuser){
+    User.findById(id, function(err,user){
         if(err){
             console.log('error in fiding user --> passport ');
             return done(err);
@@ -51,6 +51,7 @@ passport.deserializeUser(function(id,done){
 //middleware for checking the authentication putpose
 //check if user is authenticated 
 passport.checkAuthentication = function(req,res,next){
+    console.log('checkAuthentication ');
     // if user is signed in, then pass on the reqwuest to the next function(controllers action)
     if(req.isAuthenticated()){
         return next();
@@ -62,9 +63,11 @@ passport.checkAuthentication = function(req,res,next){
 
 //used to set the authenticated user in locals for the views 
 passport.setAuthenticatedUser= function(req,res,next){
+    console.log('setAuthenticatedUser');
+
     if(req.isAuthenticated()){
         //req .user cotains the current signed in user from the session cookie and we are just sending this to locals for the views
-        res.locals.user= req.user;
+        res.locals.user = req.user;
     }
     next();//middleware so we need to transger it 
 }
