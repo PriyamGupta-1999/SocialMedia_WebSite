@@ -31,6 +31,7 @@ module.exports.create=function(req,res){
 //get the sign up data
 module.exports.createSession=function(req,res){
     //todo later
+    return res.redirect('/');
 }
 
 //creating controller for create after signup
