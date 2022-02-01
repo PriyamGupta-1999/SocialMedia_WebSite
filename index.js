@@ -17,6 +17,13 @@ const session = require('express-session');
 const passport= require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 
+
+//to connect and store session in mongoose db for user to keep signed in after server refresh
+
+const MongoStore=require('connect-mongo')(session);
+
+
+
 app.use(expressLayouts);
 
 app.use(express.static('./assets'));
@@ -36,7 +43,7 @@ app.set('view engine','ejs');
 app.set('views','./views');
 
 
-
+//MONGO STORE USED TO STORE SESSION COOKIE IN db
 //midddlware for key 
 app.use(session({
     name: 'codeial',
@@ -46,7 +53,17 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
+    },//addding mongotore to keep it even when server restarts 
+    store: new MongoStore(
+        {
+            mongooseConnection: db,
+            autoRemove: 'disabled'
+        },
+        function(err){
+            console.log(err || 'connect mongodb setup ok ');
+        }
+    )
+    
 }));
 app.use(passport.initialize());
 app.use(passport.session());

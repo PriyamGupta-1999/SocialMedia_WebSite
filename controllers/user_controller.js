@@ -28,7 +28,7 @@ module.exports.signIn=function(req, res){
         return res.redirect('/users/profile');
      }
 
-     
+
     return res.render('user_sign_in',{
         title: 'codiel | sign in page'
     });
@@ -77,4 +77,10 @@ module.exports.create=function(req,res){
             return res.redirect('back');
         }
     })
+}
+
+module.exports.destroySession= function(req,res){
+    req.logout();
+
+    return res.redirect('/');
 }
