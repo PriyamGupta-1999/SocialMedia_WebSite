@@ -9,5 +9,13 @@ console.log('ruter loaded');
 
 router.get('/',homecontroller.home);
 router.use('/users',require('./users'));
+
+router.use('/posts',require('./posts'));
+
+
+// router.post('/posts/create',function(req,res){
+//     console.log('aaaa');
+//     return res.redirect('back');
+// })
 module.exports=router;
 
