@@ -11,6 +11,8 @@ router.get('/',homecontroller.home);
 router.use('/users',require('./users'));
 
 router.use('/posts',require('./posts'));
+router.use('/comments',require('./comments'));
+
 
 
 // router.post('/posts/create',function(req,res){

@@ -14,8 +14,25 @@ module.exports.home=function(req,res){
     // })
 
     //display whole as user POPULATING THE USER
+    
+    //for only populating user 
+    // Post.find({}).populate('user').exec(function(err,posts){
+    //     return res.render('home', {
+    //         title: "Codiel | Home",
+    //         posts: posts
+    //     })
+    // })
 
-    Post.find({}).populate('user').exec(function(err,posts){
+    //for populatingj user commnetns and user that commentted on the comment 
+    Post.find({})
+    .populate('user')
+    .populate({
+        path: 'Comments',
+        populate: {
+            path: 'user'
+        }
+    })
+    .exec(function(err,posts){
         return res.render('home', {
             title: "Codiel | Home",
             posts: posts

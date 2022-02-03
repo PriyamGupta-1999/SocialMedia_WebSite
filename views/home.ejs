@@ -17,6 +17,7 @@
         <% } %>
         <div id="post-list-container">
             <ul>
+                <!-- POST -->
                 <% for(post of posts) { %>
                     <li>
                         <p>
@@ -28,6 +29,35 @@
                                 <%= post.user.name %>
                             </small>
                         </p>
+                        <!-- POST COMMENTS  -->
+                        <div class="post-comments">
+                            <% if(locals.user) {%>
+                              
+                                 <form action="/comments/create" method="POST">
+                                     <input type="text" name="content" placeholder="type here to add comments..">
+                                     <!-- sending hidden data  -->
+                                     <input type="hidden" name="post" value="<%= post._id %>">
+                                     <input type="submit" value="Add Comment">
+
+                                 </form>
+                            <% } %>
+                        </div>
+
+
+                        <div id="post-comments-list">
+                            <ul id="post-comments-<%= post._id %>" >
+                                 <% for( comments of post.Comments) {%>
+                                    <p>
+                                        <%= comments.content %>
+                                        <br>
+                                        <small>
+                                            <%= comments.user.name %>
+                                        </small>
+                                    </p>
+                                    
+                                 <% } %>
+                            </ul>
+                        </div>
                     </li>
                     <% } %>
             </ul>
