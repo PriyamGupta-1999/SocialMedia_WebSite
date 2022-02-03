@@ -1,3 +1,4 @@
+const { redirect } = require('express/lib/response');
 const Comment= require('../models/comment');
 const Post= require('../models/post');
 
@@ -23,6 +24,30 @@ module.exports.create= function(req,res){
                 post.save();//save the comments to the post 
                 res.redirect('/');//redirect it to save it 
             })
+        }
+    })
+}
+
+
+module.exports.destroy = function(req,res){
+    console.log(req.params.id);
+    Comment.findById(req.params.id, function(err, comment){
+        //.id is used instead of ._id -> used to convert object to string
+        console.log(comment.user);
+
+        if(comment.user==req.user.id){
+            let post_id= comment.post;
+            comment.remove();
+            //function given by mongo to delete many comments with paraameter id 
+
+            Post.findByIdAndUpdate(post_id, {$pull: {Comments: req.params.id }},function(err,post){
+                return res.redirect('back');
+            })
+
+            
+           
+        }else{
+            return res.redirect('back');
         }
     })
 }

@@ -37,7 +37,7 @@
                         <!-- POST COMMENTS  -->
                         <div class="post-comments">
                             <% if(locals.user) {%>
-                              
+                                
                                  <form action="/comments/create" method="POST">
                                      <input type="text" name="content" placeholder="type here to add comments..">
                                      <!-- sending hidden data  -->
@@ -53,6 +53,13 @@
                             <ul id="post-comments-<%= post._id %>" >
                                  <% for( comments of post.Comments) {%>
                                     <p>
+                                        <% if(locals.user && locals.user.id==comments.user.id) { %>
+                                            <small>
+                                                <a href="/comments/destroy/<%=comments.id%>">X</a>
+                                            </small>    
+                                        
+                                         <% } %>
+                                        
                                         <%= comments.content %>
                                         <br>
                                         <small>
