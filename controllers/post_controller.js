@@ -3,34 +3,39 @@ const Comment=require('../models/comment');
 module.exports.post=function(req,res){
     return res.end('<h1> user posts</h1>');
 }
-
-module.exports.create=function(req,res){
+//generally not needed to convert to async await in one level of code 
+module.exports.create= async function(req,res){
     console.log('createPost');
-    Post.create({
-        content: req.body.content,
-        user: req.user._id,
-    },function(err,post){
-        if(err){ console.log('error in creating the Post');
-            return;
-        }
+
+    try{
+        let post= await Post.create({
+            content: req.body.content,
+            user: req.user._id,
+        })
 
         return res.redirect('back');
-    })
+    }catch(err){
+        console.log(err);
+    }
 }
 
 //DELETING THE POSTS
-module.exports.destroy = function(req,res){
+module.exports.destroy = async function(req,res){
     // console.log('11')
-    Post.findById(req.params.id, function(err, post){
-        //.id is used instead of ._id -> used to convert object to string
-        if(post.user==req.user.id){
+    try{
+    let post= await Post.findById(req.params.id);
+       
+    
+    //.id is used instead of ._id -> used to convert object to string
+    if(post.user==req.user.id){
             post.remove();
             //function given by mongo to delete many comments with paraameter id 
-            Comment.deleteMany({post: req.params.id}, function(err){
-                return res.redirect('back');
-            })
+            await Comment.deleteMany({post: req.params.id});
+            return res.redirect('back');
         }else{
             return res.redirect('back');
         }
-    })
+    }catch(err){
+        console.log('error',err);
+    }
 }
