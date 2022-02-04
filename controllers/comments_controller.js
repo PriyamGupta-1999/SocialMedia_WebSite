@@ -19,10 +19,14 @@ module.exports.create= async function(req,res){
             // post.Comments.push(comment);
             post.Comments.push(comment);
             post.save();//save the comments to the post 
+
+            req.flash('success','Comment created');
             res.redirect('/');//redirect it to save it 
         }
    }catch(err){
        console.log('ERROR',err);
+       req.flash('error','Comment cant be created');
+
    } 
    
 }
@@ -43,9 +47,13 @@ module.exports.destroy = async function(req,res){
 
             
             let post=await Post.findByIdAndUpdate(post_id, {$pull: {Comments: req.params.id }});
+             req.flash('success','Comment destroyed');
+
             return res.redirect('back');
 
         }else{
+            req.flash('error','You cant destroy this comment ');
+
             return res.redirect('back');
         }
    

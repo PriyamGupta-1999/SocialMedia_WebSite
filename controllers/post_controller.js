@@ -12,9 +12,11 @@ module.exports.create= async function(req,res){
             content: req.body.content,
             user: req.user._id,
         })
+        req.flash('success','Post created');
 
         return res.redirect('back');
     }catch(err){
+        req.flash('error',err);
         console.log(err);
     }
 }
@@ -31,11 +33,15 @@ module.exports.destroy = async function(req,res){
             post.remove();
             //function given by mongo to delete many comments with paraameter id 
             await Comment.deleteMany({post: req.params.id});
+            req.flash('success','Post destroyed');
+
             return res.redirect('back');
         }else{
             return res.redirect('back');
         }
     }catch(err){
+        req.flash('error',err);
+
         console.log('error',err);
     }
 }

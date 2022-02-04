@@ -16,9 +16,12 @@ module.exports.profile=function(req,res){
 module.exports.update = function(req,res){
     if(req.user.id==req.params.id){
         User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+            req.flash('success','Profile Updated');
+
             return res.redirect('back');
         });
     }else{
+        
         return res.status(401).send('Unauthorized');
     }
 }
@@ -30,6 +33,7 @@ module.exports.signUp=function(req, res){
        return res.redirect('/users/profile');
     }
 
+    req.flash('success','Signed Up succesfully');
 
     return res.render('user_sign_up',{
         title: 'codiel | sign Up page'
@@ -41,9 +45,11 @@ module.exports.signUp=function(req, res){
 module.exports.signIn=function(req, res){
 
     if(req.isAuthenticated()){
+        req.flash('success','Welcome ${req.user.name}');
         return res.redirect('/users/profile');
      }
 
+    
 
     return res.render('user_sign_in',{
         title: 'codiel | sign in page'
