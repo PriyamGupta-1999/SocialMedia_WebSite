@@ -14,7 +14,12 @@
     <!-- partial for header  -->
     <%- include('_header'); %>
     
-    
+    <% if (flash.success && flash.success.length > 0) { %>
+        <h5>
+            <!-- using locals  -->
+            <%=flash.success %>
+        </h5>
+    <%}%>
     
     <%- body %>
    

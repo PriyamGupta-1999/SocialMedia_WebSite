@@ -21,7 +21,12 @@ const passportLocal= require('./config/passport-local-strategy');
 //to connect and store session in mongoose db for user to keep signed in after server refresh
 
 const MongoStore=require('connect-mongo')(session);
-// const sassMiddleware=require('node-sass-middleware');
+
+//require for flash messages 
+const flash=require('connect-flash');
+
+//custom middleeware to add flash messages to locals 
+const CustomMware= require('./config/middleware');
 
 
 app.use(expressLayouts);
@@ -69,6 +74,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+//placed here as used after the set authenticated 
+app.use(flash());
+app.use(CustomMware.setFlash);
 //uisng router of routes
 app.use('/',require('./routes'));
 app.listen(port,function(err){

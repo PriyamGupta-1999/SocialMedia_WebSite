@@ -60,6 +60,7 @@ module.exports.create=function(req,res){
 module.exports.createSession=function(req,res){
     //todo later
     console.log('in createSession');
+    req.flash('success','Logged in Succesfully');
     return res.redirect('/');
 }
 
@@ -98,6 +99,7 @@ module.exports.create=function(req,res){
 //for sign out 
 module.exports.destroySession= function(req,res){
     req.logout();
+    req.flash('success','You have logged out ');
 
     return res.redirect('/');
 }
