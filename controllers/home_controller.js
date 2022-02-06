@@ -6,6 +6,7 @@ module.exports.home= async function(req,res){
     //await to mention complete this and then go ahead 
     try{
     let posts= await Post.find({})
+    .sort('-created')//sort items with the time they are created
     .populate('user')
     .populate({
         path: 'Comments',

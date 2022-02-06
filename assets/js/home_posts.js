@@ -9,10 +9,11 @@
             $.ajax({
                 type: 'post',
                 url: '/posts/create',
-                data: newPostForm.serialize(),
+                data: newPostForm.serialize(),//used to parsen the data into json format 
                 success: function(data){
                     let newPost= newPostDom(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
+                    deletePost($('.delete-post-button', newPost))//find delete link in new post using the class name 
                 },error: function(error){
                     console.log(error.responseText);
                 }
@@ -63,6 +64,25 @@
             </ul>
         </div>
     </li>`)
+    }
+
+
+
+    //method to delete the post from the dom 
+    let deletePost= function(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'), // this will give the value href in a tag
+                success: function(data){
+                    $('#post-4{data.data.post_id}').remove();//function to remove the post by its id in ajax 
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            })
+        })
     }
     createPost();
 }
