@@ -1,3 +1,4 @@
+const { response } = require("express");
 const User = require("../models/user");
 
 module.exports.profile=function(req,res){
@@ -13,17 +14,53 @@ module.exports.profile=function(req,res){
 }
 
 //update the profile 
-module.exports.update = function(req,res){
-    if(req.user.id==req.params.id){
-        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-            req.flash('success','Profile Updated');
+module.exports.update = async function(req,res){
+    // if(req.user.id==req.params.id){
+    //     User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+    //         req.flash('success','Profile Updated');
 
-            return res.redirect('back');
-        });
-    }else{
+    //         return res.redirect('back');
+    //     });
+    // }else{
         
+    //     return res.status(401).send('Unauthorized');
+    // }
+
+    // AFTER ADDING AVATAR HERE 
+    if(req.user.id==req.params.id){
+        
+        try{
+            let user=await User.findById(req.params.id);
+            //used here to decode the params send in form as now they are noot simple one 
+        //but encrypted params 
+      
+
+            User.uploadedAvatar(req,res,function(err){
+                if(err){
+                    console.log('**** multerr errorr', err);
+                }
+                // console.log('hhh');
+                user.name=req.body.name;
+                user.email=req.body.email;
+                //if file is needed to be change then only do it 
+                console.log(req.file);
+                if(req.file){
+                    //this is saving the path of uploaded file into the avatar fiield in the user
+                    user.avatar=User.avatarPath+'/'+req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+            })
+        }catch(err){
+            req.flash('error',err);
+            return res.redirect('back');
+        }
+    }else{
+        req.flash('error',err);
         return res.status(401).send('Unauthorized');
+
     }
+
 }
 
 //render the sign in page 

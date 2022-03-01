@@ -27,7 +27,7 @@ const userSchema=new mongoose.Schema({
 
     //adding avatar 
     avatar: {
-        type: string 
+        type: String 
     },
 },
 {
@@ -38,7 +38,7 @@ const userSchema=new mongoose.Schema({
 //creating multer stroage 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirnam,'..',AVATAR_PATH));
+      cb(null, path.join(__dirname,'..',AVATAR_PATH));//need to be changd from documentation we got 
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -46,6 +46,13 @@ const storage = multer.diskStorage({
     }
   })
 
+
+ //creating static methods to use them in controllerr 
+ //single is to store only one image only in the storage using multerr 
+ userSchema.statics.uploadedAvatar=multer({storage: storage}).single('avatar');
+
+//declare avatar path for fututre usee 
+userSchema.statics.avatarPath=AVATAR_PATH;
 const User=mongoose.model('User',userSchema);
 
 module.exports= User;
