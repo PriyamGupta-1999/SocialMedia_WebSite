@@ -39,6 +39,10 @@ app.use(express.urlencoded());
 //adding parser for cookies which can be used as middleware
 app.use(cookieParser());
 
+//make the uupload path available to our broweser for avatar purposee
+app.use('/uploads',express.static(__dirname+'/uploads'));
+
+
 // for extracting style and script tag into layouts
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);

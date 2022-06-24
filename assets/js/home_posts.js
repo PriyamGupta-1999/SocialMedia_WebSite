@@ -77,7 +77,8 @@
                 type: 'get',
                 url: $(deleteLink).prop('href'), // this will give the value href in a tag
                 success: function(data){
-                    $('#post-4{data.data.post_id}').remove();//function to remove the post by its id in ajax 
+                    $(`#post-${data.data.post_id}`).remove();//function to remove the post by its id in ajax 
+                    //post_id object is coming from the req.xhr file 
                 },error: function(error){
                     console.log(error.responseText);
                 }

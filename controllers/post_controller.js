@@ -15,7 +15,7 @@ module.exports.create= async function(req,res){
 
         if(req.xhr){
             //if req is kind of xhr then make custom json layout for it 
-            console.log('jj');
+            
             return res.status(200).json({
                 data: {
                     post: post //usedd the post created above to pass it in data 

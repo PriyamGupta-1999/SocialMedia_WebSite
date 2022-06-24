@@ -1,6 +1,7 @@
 const { response } = require("express");
 const User = require("../models/user");
-
+const fs=require('fs');
+const path=require('path');
 module.exports.profile=function(req,res){
     User.findById(req.params.id,function(err,user){
         return res.render('user_profile',{
@@ -45,6 +46,16 @@ module.exports.update = async function(req,res){
                 //if file is needed to be change then only do it 
                 console.log(req.file);
                 if(req.file){
+
+                    //to check if user avatar is already present or not 
+
+                    if(user.avatar){
+                        try{
+                            fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                        }catch(err){
+
+                        }
+                    }
                     //this is saving the path of uploaded file into the avatar fiield in the user
                     user.avatar=User.avatarPath+'/'+req.file.filename;
                 }
