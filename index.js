@@ -18,6 +18,7 @@ const passport= require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 const passportJWT=require('./config/passport-jwt-strategy');
 
+const passportgoogle= require('./config/passport-google-oauth2-strategy');
 //to connect and store session in mongoose db for user to keep signed in after server refresh
 
 const MongoStore=require('connect-mongo')(session);

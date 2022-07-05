@@ -31,6 +31,12 @@ router.post('/create-session',passport.authenticate(
 
 router.get('/sign-out',userControllers.destroySession);
 
+//not call bakc but google wil recongines by this url
+//scope will mention all the info we need  
+router.get('/auth/google',passport.authenticate('google',{scope: ['profile','email']}));
+
+router.get('/auth/google/callback',passport.authenticate('google', {failureRedirect: 'users/sign-in'}), userControllers.createSession);
+
 
 
 module.exports=router;
