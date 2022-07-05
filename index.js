@@ -16,7 +16,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport= require('passport');
 const passportLocal= require('./config/passport-local-strategy');
-
+const passportJWT=require('./config/passport-jwt-strategy');
 
 //to connect and store session in mongoose db for user to keep signed in after server refresh
 
