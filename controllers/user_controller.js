@@ -51,6 +51,7 @@ module.exports.update = async function(req,res){
 
                     if(user.avatar){
                         try{
+                            //to rempove previous avatar file from the path
                             fs.unlinkSync(path.join(__dirname,'..',user.avatar));
                         }catch(err){
 
@@ -95,6 +96,9 @@ module.exports.signIn=function(req, res){
     if(req.isAuthenticated()){
         req.flash('success','Welcome ${req.user.name}');
         return res.redirect('/users/profile');
+     }else{
+        req.flash('error','unabel to sign in');
+
      }
 
     

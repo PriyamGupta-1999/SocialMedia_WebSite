@@ -12,6 +12,7 @@ passport.use(new LocalStragetgy({
     passReqToCallback:true
 },
     function(req,email,password,done){
+        console.log(email);
         User.findOne({email: email}, function(err,user){
             if(err){
                 req.flash('error',err);
@@ -56,10 +57,13 @@ passport.deserializeUser(function(id,done){
 //middleware for checking the authentication putpose
 //check if user is authenticated 
 passport.checkAuthentication = function(req,res,next){
-    console.log('checkAuthentication ');
+    console.log('checkAuthentication ',req.user);
     // if user is signed in, then pass on the reqwuest to the next function(controllers action)
     if(req.isAuthenticated()){
         return next();
+    }else{
+        req.flash('error','Not valid');
+        
     }
     //if the user is not signedd in 
     return res.redirect('/users/sign-in');

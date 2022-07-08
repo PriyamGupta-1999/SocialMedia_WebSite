@@ -1,65 +1,81 @@
+
 <!-- body for layout.ejs  -->
 <link rel="stylesheet" href="/css/home.css">
 
 <div id="home-container">
     <!-- <h1>Codeial / <%=title%></h1> -->
-   
-    <section id="feed-posts">   
-        <h4>Posts</h4>
 
-        <% if(locals.user) { %>
-        <form action="/posts/create" id="new-post-form" method="POST">
-            <textarea name="content"  cols="30" rows="3"></textarea>
-            <input type="submit" value="Post">
-        </form>
-        <% } %>
-        <div id="post-list-container">
-            <div class="container">
-                <div class="row">
-                   <div class="col-md-12">
-                     
-                       
-                         <div class="profile-content">
-                            <!-- begin tab-content -->
-                            <div class="tab-content p-0">
-                               <!-- begin #profile-post tab -->
-                               <div class="tab-pane fade active show" id="profile-post">
-                                  <!-- begin timeline -->
-                                  <ul class="timeline">
-                                    
-                                        <!-- POST -->
-                                        <% for(post of posts) { %>
-                                            <!-- partials for posts  -->
-                                            
-                                            <%- include('_posts') -%>
-                                            <% } %>
-                                    
-                                    </ul>
-                                  <!-- end timeline -->
-                               </div>
-                               <!-- end #profile-post tab -->
-                            </div>
-                            <!-- end tab-content -->
-                         </div>
-                         <!-- end profile-content -->
-                      </div>
-                   </div>
-                </div>
-             </div>
-            
-        </div>
-    </section>
+    <!-- <section id="Create-a-post">
+        
+        <div class="container">
+            <% if(locals.user) { %>
+                <h5>Create new Posts</h5>
 
-    <section id="user-friends">
-        <h4>Friends</h4>
-        <% for(u of all_users) { %>
-            <p>
-                <a href="/users/profile/<%= u.id%>"> <%= u.name %></a>
-            </p>
-            
+                    <form action="/posts/create" id="new-post-form" method="POST">
+                        
+                    
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">Write Your New Post</label>
+                        <textarea name="content" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></textarea>
+                        
+                        </div>
+                        
+                        <button id="button-submit-form" type="submit" value="Post" class="btn btn-primary">Submit</button>
+                    </form>
             <% } %>
-    </section>
-   
+        </div>
+    </section> -->
+        <section id="feed-posts">
+                <div id="post-list-container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+
+                                <div class="profile-content">
+                                    <!-- begin tab-content -->
+                                    <div class="tab-content p-0">
+                                        <!-- begin #profile-post tab -->
+                                        <div class="tab-pane fade active show" id="profile-post">
+                                            <!-- begin timeline -->
+                                            <ul class="timeline">
+
+                                                <!-- POST -->
+                                                <% for(post of posts) { %>
+                                                    <!-- partials for posts  -->
+
+                                                    <%- include('_posts') -%>
+                                                        <% } %>
+
+                                            </ul>
+                                            <!-- end timeline -->
+                                        </div>
+                                        <!-- end #profile-post tab -->
+                                    </div>
+                                    <!-- end tab-content -->
+                                </div>
+                                <!-- end profile-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+</div>
+
+
+<!-- <section id="user-friends">
+    <h4>Friends</h4>
+    <% for(u of all_users) { %>
+        <p>
+            <a href="/users/profile/<%= u.id%>">
+                <%= u.name %>
+            </a>
+        </p>
+
+        <% } %>
+</section> -->
+
 
 </div>
 <script src="/js/home_posts.js"></script>
+
