@@ -2,21 +2,175 @@
 <!-- body for layout.ejs  -->
 <link rel="stylesheet" href="/css/home.css">
 
+<style>
+#home-container{
+    display: flex;
+    position: relative;
+}
+
+#floating-button{
+    display: none;
+
+}
+/* #Create-a-post{
+    display: none;
+} */
+#cross-post{
+    font-size: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+    #cross-post{
+        font-size: 20px;
+
+    }
+    #home-container{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    #Create-a-post{
+       display: none;
+       /* display: fixed; */
+       position: fixed;
+       z-index: 9; 
+       background-color: rgb(59,89,152);
+       top: 200px;
+       left: 10px;
+        padding: 4px;
+    }
+
+    #profile-content{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #floating-button{
+        /* display: 100px; */
+        position: fixed;
+        /* top: 0px; */
+        /* bottom: 200px; */
+        z-index: 9;
+        margin-left: 4px;
+        background-color: cornflowerblue;
+        display: flex;
+        align-items: center;
+    }
+
+    #create-post-label-1{
+        color: white;
+    }
+    #create-post-label-2{
+        color: white;
+    }
+    
+}
+
+
+
+CSS
+#chat1 .form-outline .form-control~.form-notch div {
+pointer-events: none;
+border: 1px solid;
+border-color: #eee;
+box-sizing: border-box;
+background: transparent;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-leading {
+left: 0;
+top: 0;
+height: 100%;
+border-right: none;
+border-radius: .65rem 0 0 .65rem;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-middle {
+flex: 0 0 auto;
+max-width: calc(100% - 1rem);
+height: 100%;
+border-right: none;
+border-left: none;
+}
+
+#chat1 .form-outline .form-control~.form-notch .form-notch-trailing {
+flex-grow: 1;
+height: 100%;
+border-left: none;
+border-radius: 0 .65rem .65rem 0;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-leading {
+border-top: 0.125rem solid #39c0ed;
+border-bottom: 0.125rem solid #39c0ed;
+border-left: 0.125rem solid #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-leading,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-leading {
+border-right: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-middle {
+border-bottom: 0.125rem solid;
+border-color: #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-middle,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-middle {
+border-top: none;
+border-right: none;
+border-left: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-trailing {
+border-top: 0.125rem solid #39c0ed;
+border-bottom: 0.125rem solid #39c0ed;
+border-right: 0.125rem solid #39c0ed;
+}
+
+#chat1 .form-outline .form-control:focus~.form-notch .form-notch-trailing,
+#chat1 .form-outline .form-control.active~.form-notch .form-notch-trailing {
+border-left: none;
+transition: all 0.2s linear;
+}
+
+#chat1 .form-outline .form-control:focus~.form-label {
+color: #39c0ed;
+}
+
+#chat1 .form-outline .form-control~.form-label {
+color: #bfbfbf;
+}
+
+
+</style>
+   
 <div id="home-container">
+    
     <!-- <h1>Codeial / <%=title%></h1> -->
-
-    <!-- <section id="Create-a-post">
+    <div id="floating-button">
+        <a id="posts-new" class="btn btn-primary" style="background-color: #55acee;" href="#!" role="button">
+            <i class="far fa-plus-square"></i>
+            Add New Posts
+          </a>
+    </div>
+    
+    <div id="Create-a-post">
         
-        <div class="container">
+        <div class="container" style="padding: 30px;">
             <% if(locals.user) { %>
-                <h5>Create new Posts</h5>
-
+                <h5 id="create-post-label-2">Create new Posts</h5> <div id="cross"> 
+                    <p id="cross-post" style="color: white; display: inline;">x</p> </div>
+                    
                     <form action="/posts/create" id="new-post-form" method="POST">
                         
                     
                         <div class="form-group">
-                        <label for="exampleInputEmail1">Write Your New Post</label>
-                        <textarea name="content" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></textarea>
+                        <label for="exampleInputEmail1" id="create-post-label-1">Write Your New Post</label>
+                        <textarea rows= "5" cols="50" name="content" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Write here "></textarea>
                         
                         </div>
                         
@@ -24,16 +178,46 @@
                     </form>
             <% } %>
         </div>
-    </section> -->
-        <section id="feed-posts">
+    </div>
+    <div class="container-fluid">
                 <div id="post-list-container">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
 
 
-                                <div class="profile-content">
+                                <div class="profile-content" style="border-left: 3px solid; border-right: 3px solid; border-color: rgb(255, 255, 255); padding-left: 4px; height: 1000px; overflow: auto;">
                                     <!-- begin tab-content -->
+                                    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                                        <a class="navbar-brand" href="#">Posts</a>
+                                        <ul class="navbar-nav mr-auto">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">See new posts!!</a>
+                                              </li>
+                                        </ul>
+                                        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                          <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                    
+                                        <div class="collapse navbar-collapse" id="navbarColor02">
+                                          <ul class="navbar-nav mr-auto">
+                                            <li class="nav-item active">
+                                              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                            </li>
+                                           
+                                            <li class="nav-item">
+                                              <a class="nav-link" href="#">Pricing</a>
+                                            </li>
+                                            <li class="nav-item">
+                                              <a class="nav-link" href="#">About</a>
+                                            </li>
+                                          </ul>
+                                          <form class="form-inline">
+                                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                                          </form>
+                                        </div> -->
+                                      </nav>
                                     <div class="tab-content p-0">
                                         <!-- begin #profile-post tab -->
                                         <div class="tab-pane fade active show" id="profile-post">
@@ -59,11 +243,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
-</div>
+            </div>
 
 
-<!-- <section id="user-friends">
+
+    <div id="user-friends">
     <h4>Friends</h4>
     <% for(u of all_users) { %>
         <p>
@@ -73,9 +257,117 @@
         </p>
 
         <% } %>
-</section> -->
-
-
+    </div>
 </div>
+
+
+<footer class="text-center text-lg-start bg-light text-muted">
+    <!-- Section: Social media -->
+    <section
+      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
+  
+      <!-- Right -->
+      <div>
+        
+        <a href="chat2vibeofficial@gmail.com" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+  
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Chat2Vibe
+            </h6>
+            <!-- <p>
+              Here you can use rows and columns to organize your footer content. Lorem ipsum
+              dolor sit amet, consectetur adipisicing elit.
+            </p> -->
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Products
+            </h6>
+            <p>
+              <a href="/" class="text-reset">Chat2Vibe</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">About Us</a>
+            </p>
+            
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="#!" class="text-reset">Profile Page</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">chats</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Friends</a>
+            </p>
+            
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contact
+            </h6>
+            <p><i class="fas fa-home me-3"></i> Delhi, India</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              chat2vibeofficial@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> +91 9643939034</p>
+           
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+  
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2022 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Chat2Vibe.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+  <%- include('chat_box') -%>
 <script src="/js/home_posts.js"></script>
+
 

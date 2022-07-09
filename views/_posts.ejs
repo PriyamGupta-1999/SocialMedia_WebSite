@@ -665,21 +665,49 @@
 
 
 
+    <style>
+        
+        
+        @media only screen and (max-width: 600px) {
+            #timeline-time{
+                /* display: none; */
+                /* margin-right: 2%;
+                margin-left: 0px;
+                width: 100%; */
+                font-size:smaller
+            }
+            #timeline-icon{
+                display: none;
+                
+            }
 
+            .timeline-body{
+                width: 100%;
+            }
+            li{
+                width: 100%;
+            }
+
+            #time{
+               font-size:smaller 
+            }
+            
+        }
+    </style>
 
 
 
     <li id="post-<%= post._id %> ">
         <!-- begin timeline-time -->
-        <div class="timeline-time">
+        <div id="timeline-time" class="timeline-time">
             <span class="date">
-                <%= post.createdAt %>
+                <p id="time" style="color: rgb(42, 106, 158)"><%= post.createdAt %></p>
             </span>
             <!-- <span class="time">20:17</span> -->
         </div>
         <!-- end timeline-time -->
         <!-- begin timeline-icon -->
-        <div class="timeline-icon">
+        <div id= "timeline-icon" class="timeline-icon">
             <a href="javascript:;">&nbsp;</a>
         </div>
         <!-- end timeline-icon -->
@@ -725,7 +753,7 @@
                     </div>
                     <% } %>
                         <button id='comment-button-<%= post._id %>'><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</button>
-
+                        <%= post.likes.length %><a href="/likes/toggle/?id=<%= post._id %>&type=Post" id="toggle-button-<%= post._id %>" class="m-r-15 text-inverse-lighter mx-2"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3 "></i> Like</a>
                         <div id="post-comments-list-<%= post._id %>" style="display: none;">
                             <ul id="post-comments-<%= post._id %>" class="list-group">
                                 <% for( comments of post.Comments) {%>
@@ -735,7 +763,7 @@
                                     <% } %>
                             </ul>
                         </div>
-                        <!-- <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a> -->
+                        
                         <!-- <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>  -->
                         <!-- <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a> -->
             </div>
@@ -772,4 +800,5 @@
 
             document.getElementById('post-comments-list-<%= post._id %>').style.display = 'block';
     })
+
 </script>
