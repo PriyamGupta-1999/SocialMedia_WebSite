@@ -30,6 +30,7 @@ const flash=require('connect-flash');
 const CustomMware= require('./config/middleware');
 
 
+
 app.use(expressLayouts);
 
 app.use(express.static('./assets'));
@@ -44,6 +45,7 @@ app.use(cookieParser());
 app.use('/uploads',express.static(__dirname+'/uploads'));
 
 
+
 // for extracting style and script tag into layouts
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
@@ -52,6 +54,14 @@ app.set('layout extractScripts', true);
 app.set('view engine','ejs');
 app.set('views','./views');
 
+
+
+
+//chatting engine congig , chat server 
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
 
 //MONGO STORE USED TO STORE SESSION COOKIE IN db
 //midddlware for key 
@@ -83,6 +93,8 @@ app.use(passport.setAuthenticatedUser);
 //placed here as used after the set authenticated 
 app.use(flash());
 app.use(CustomMware.setFlash);
+
+
 //uisng router of routes
 app.use('/',require('./routes'));
 app.listen(port,function(err){
