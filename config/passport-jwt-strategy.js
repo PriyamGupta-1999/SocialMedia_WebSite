@@ -4,14 +4,14 @@ const passport=require('passport');
 //this code is used to decrypt the jwt header token we have generated previously for sign in purpose 
 
 
-
+const env=require('./environment');
 var JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 var opts = {}
 
 //we will find jwt from the header token
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'codiel';
+opts.secretOrKey = env.jwt_secret;
 
 //done is a call back here 
 // we find the user base on payload

@@ -1,4 +1,6 @@
 const express=require('express');
+
+const env= require('./config/environment');
 const app=express();
 const port=8000;
 //cookie parser
@@ -33,7 +35,7 @@ const CustomMware= require('./config/middleware');
 
 app.use(expressLayouts);
 
-app.use(express.static('./assets'));
+app.use(express.static(__dirname + env.asset_path));
 
 //parser for requested objects
 app.use(express.urlencoded());
@@ -68,7 +70,7 @@ console.log('chat server is listening on port 5000');
 app.use(session({
     name: 'codeial',
     //to do change the secret before deployment in productionm mode 
-    secret: 'blashsomething',
+    secret: env.session_cookie_key,
     saveUninitialized:false,
     resave: false,
     cookie: {
