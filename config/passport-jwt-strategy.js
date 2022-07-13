@@ -11,7 +11,9 @@ var opts = {}
 
 //we will find jwt from the header token
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+console.log(env.jwt_secret);
 opts.secretOrKey = env.jwt_secret;
+
 
 //done is a call back here 
 // we find the user base on payload

@@ -1,7 +1,14 @@
 const express=require('express');
 
 const env= require('./config/environment');
+
+const logger = require('morgan');
+
+
 const app=express();
+
+//now this will passed to view helpers
+require('./config/view-helper')(app);
 const port=8000;
 //cookie parser
 // const cookieParser=require('cookie-parser');
@@ -35,7 +42,8 @@ const CustomMware= require('./config/middleware');
 
 app.use(expressLayouts);
 
-app.use(express.static(__dirname + env.asset_path));
+
+app.use(express.static(env.asset_path));
 
 //parser for requested objects
 app.use(express.urlencoded());
@@ -46,6 +54,7 @@ app.use(cookieParser());
 //make the uupload path available to our broweser for avatar purposee
 app.use('/uploads',express.static(__dirname+'/uploads'));
 
+app.use(logger(env.morgan.mode,env.morgan.optons));
 
 
 // for extracting style and script tag into layouts

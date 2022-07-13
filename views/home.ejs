@@ -1,5 +1,5 @@
 <!-- body for layout.ejs  -->
-<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="<%= assetPath('css/home.css')%>">
 
 
 <div id="home-container">
@@ -33,6 +33,18 @@
 
           <button id="button-submit-form" type="submit" value="Post" class="btn btn-primary">Submit</button>
         </form>
+        <% } else {%>
+          <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Welcome to chat2Vibe</div>
+            <div class="card-body">
+              
+              <p class="card-text">New to Chat2vibe? sign-up today to create Posts</p>
+              <a href="/users/sign-in" class="btn btn-light" style="margin-bottom: 10px;">Sign-in</a>
+
+              <a href="/users/sign-out" class="btn btn-light">Sign-up</a>
+
+            </div>
+          </div>
         <% } %>
     </div>
   </div>
@@ -106,10 +118,10 @@
 
 
   <div id="user-friends">
-    <h4>Friends</h4>
-    <div id="users" style="width: 500px;">
+    <h4 style="width: 300px;">Meet New People, chat to vibe!</h4>
+    <div id="users" style="width: 300px;">
       <ul class="list-group">
-        <li class="list-group-item active">Friends</li>
+        <li class="list-group-item active">Users</li>
         
       <% for(u of all_users) { %>
         <li class="list-group-item">
@@ -269,11 +281,11 @@
 </footer>
 
 
-  <script src="/js/home_posts.js"></script>
-
+  <script src=" <%= assetPath('js/home_posts.js')%>"></script>
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
-  <script src="/js/chat_engine.js"></script>
-
+  <script src="<%= assetPath('js/chat_engine.js')%>"></script>
+  
   <% if (locals.user){ %>
     <!-- <script>
       // new ChatEngine('user-chat-box', '<%= locals.user.email %>')
